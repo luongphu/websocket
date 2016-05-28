@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test websocket</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+	  var ws = new WebSocket("ws://localhost:8080/websocket/chat");
+      
+	  ws.onopen = function(){
+      };
+
+      ws.onclose = function(){
+      };
+
+      ws.onmessage = function(message){
+        $("#log").append(message.data).append("<br/>");
+        $("#message").val("")
+      };
+
+      ws.onerror = function(event){
+        alert("エラー");
+      };
+
+      $("#form").submit(function(){
+        ws.send($("#message").val());
+        return false;
+      });
+    });
+  </script>
+</head>
+<body>
+ <div id="log"></div>
+  <form id="form" action="#">
+    <input type="text" id="message" /> <input type="submit" id="send" value="送信" />
+  </form>
+</body>
+</html>
